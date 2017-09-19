@@ -86,7 +86,8 @@ else
 endif
 
 " --------------- Searching ---------------
-set smartcase			      " only do a case sensitive search if the search term has an upper case
+set ignorecase
+set smartcase			" only do a case sensitive search if the search term has an upper case
 set pastetoggle=<F9>    " when you're pasting stuff this keeps it from getting
                         "  all whacked out with indentation
 set incsearch           " incremental search
