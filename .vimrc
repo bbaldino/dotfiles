@@ -92,8 +92,8 @@ nnoremap <leader><space> :nohlsearch<CR>
 augroup configgroup
     autocmd!
     autocmd VimEnter * highlight clear SignColumn
-    autocmd BufWritePre *.py,*.js,*.txt,*.java,*.md,*.cc,*.cpp,*.h,*.hpp
-                \:call <SID>StripTrailingWhitespaces()
+    autocmd BufWritePre *.py,*.js,*.txt,*.java,*.md,*.cc,*.cpp,*.h,*.hpp 
+        \ :call <SID>StripTrailingWhitespaces()
     autocmd FileType java setlocal noexpandtab
     autocmd FileType java setlocal list
     autocmd FileType java setlocal listchars=tab:+\ ,eol:-
@@ -118,6 +118,7 @@ function! ToggleNumber()
         set relativenumber
     endif
 endfunc
+nnoremap <leader>l :call ToggleNumber()<cr>
 
 " strips trailing whitespace at the end of files. this
 " is called on buffer write in the autogroup above.
@@ -126,7 +127,7 @@ function! <SID>StripTrailingWhitespaces()
     let _s=@/
     let l = line(".")
     let c = col(".")
-    %s/\s\+$//e
+    %s,\s\+$,,e
     let @/=_s
     call cursor(l, c)
 endfunction
