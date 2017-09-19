@@ -14,6 +14,9 @@ call plug#begin('~/.vim/plugged')
 " CtrlP
 Plug 'ctrlpvim/ctrlp.vim'
 
+" Gundo
+Plug 'sjl/gundo.vim'
+
 " Initialize plugin system
 call plug#end()
 
