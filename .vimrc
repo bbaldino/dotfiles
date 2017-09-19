@@ -56,6 +56,10 @@ set foldmethod=indent   " fold based on indent level
 nnoremap j gj
 nnoremap k gk
 
+" Collapse all folds: zM, open all folds: zR
+
+let javaScript_fold=1   " JavaScript
+
 " --------------- Leader shortcuts ---------------
 " leader is a comma
 let mapleader=","
