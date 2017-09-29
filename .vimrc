@@ -38,6 +38,7 @@ set tabstop=4           " number of visual spaces per TAB
 set softtabstop=4       " number of spaces in tab when editing
 set expandtab           " tabs are spaces
 set shiftwidth=4        " the number of space characters inserted for indentation
+set bs=2                " Allow backspacing over everything in insert mode
 
 " --------------- UI Config ---------------
 set number              " show line numbers
@@ -81,6 +82,9 @@ let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 0
 "let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+
+" YouCompleteMe FixIt shortcut
+nnoremap <leader>f :YcmCompleter FixIt<CR>
 
 " allows cursor change in tmux mode
 if exists('$TMUX')
