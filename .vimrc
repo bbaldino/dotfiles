@@ -98,7 +98,7 @@ let g:ctrlp_working_path_mode = 0
 "let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 
 " YouCompleteMe FixIt shortcut
-nnoremap <leader>f :YcmCompleter FixIt<CR>
+" nnoremap <leader>f :YcmCompleter FixIt<CR>
 
 " allows cursor change in tmux mode
 if exists('$TMUX')
