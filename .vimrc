@@ -21,7 +21,7 @@ Plug 'sjl/gundo.vim'
 " Plug 'Valloric/YouCompleteMe'
 
 " clang_complete
-Plug 'rip-rip/clang_complete'
+Plug 'bbaldino/clang_complete', { 'branch': 'fix_single_quote_escape_in_results' }
 let g:clang_auto_user_options =  'compile_commands.json'
 let g:clang_snippets = 1
 let g:clang_snippets_engine = 'clang_complete'
