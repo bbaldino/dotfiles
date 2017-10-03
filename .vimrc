@@ -18,6 +18,20 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'sjl/gundo.vim'
 
 " YouCompleteMe
+" Plug 'Valloric/YouCompleteMe'
+
+" clang_complete
+Plug 'rip-rip/clang_complete'
+let g:clang_auto_user_options =  'compile_commands.json'
+let g:clang_snippets = 1
+let g:clang_snippets_engine = 'clang_complete'
+let g:clang_auto_select = 1
+let g:clang_library_path = '/usr/local/opt/llvm/lib/libclang.dylib'
+
+" Fugitive
+Plug 'tpope/vim-fugitive'
+
+" YouCompleteMe
 Plug 'Valloric/YouCompleteMe'
 
 " Fugitive
@@ -115,6 +129,7 @@ augroup configgroup
     autocmd VimEnter * highlight clear SignColumn
     autocmd BufWritePre *.py,*.js,*.txt,*.java,*.md,*.cc,*.cpp,*.h,*.hpp 
         \ :call <SID>StripTrailingWhitespaces()
+    autocmd FileType *.cc setlocal foldmethod=syntax
     autocmd FileType java setlocal list
     autocmd FileType java setlocal listchars=tab:+\ ,eol:-
     autocmd FileType java setlocal formatprg=par\ -w80\ -T4
@@ -154,3 +169,4 @@ endfunction
 
 " recursively grep for word under cursor starting from current directory
 nnoremap <silent> <C-F> :execute 'grep! -Irni ' . expand("<cword>") . ' *' <CR>:cw<CR>
+
