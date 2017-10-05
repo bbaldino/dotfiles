@@ -37,6 +37,14 @@ Plug 'Valloric/YouCompleteMe'
 " Fugitive
 Plug 'tpope/vim-fugitive'
 
+" Ultisnips
+Plug 'SirVer/ultisnips'
+set runtimepath += "$HOME/.vim"
+"let g:UltiSnipsSnippetsDir = "~"
+let g:UltiSnipsSnippetDirectories=["my_snippets"]
+let g:UltiSnipsEditSplit = "horizontal"
+let g:UltiSnipsExpandTrigger = "<c-j>"
+
 " Initialize plugin system
 call plug#end()
 
@@ -55,14 +63,14 @@ set shiftwidth=4        " the number of space characters inserted for indentatio
 set bs=2                " Allow backspacing over everything in insert mode
 
 " --------------- UI Config ---------------
-set number              " show line numbers
-set showcmd             " show command in bottom bar
-set cursorline          " highlight current line
-filetype indent on      " load filetype-specific indent files
-set wildmenu            " visual autocomplete for command menu
+set number                  " show line numbers
+set showcmd                 " show command in bottom bar
+set cursorline              " highlight current line
+filetype plugin indent on   " load filetype-specific indent files
+set wildmenu                " visual autocomplete for command menu
 set wildmode=list:longest
-set scrolloff=10        " start scrolling when the cursor is within 10 lines of the edge
-set showmatch           " highlight matching [{()}]
+set scrolloff=10            " start scrolling when the cursor is within 10 lines of the edge
+set showmatch               " highlight matching [{()}]
 
 " --------------- Folding ---------------
 set foldenable          " enable folding

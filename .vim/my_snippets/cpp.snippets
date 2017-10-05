@@ -1,0 +1,15 @@
+snippet ns "Namespace"
+namespace ${1:`!p snip.rv = snip.basename`} {
+    ${0}
+} /* namespace $1 */
+endsnippet
+
+snippet class "class"
+class ${1:`!p snip.rv = snip.basename`} {
+public:
+    $1(${2});
+    ${3:virtual }~$1();
+//protected:
+    ${4:/* data */}
+};${0}
+endsnippet
