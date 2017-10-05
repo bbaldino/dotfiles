@@ -13,3 +13,12 @@ public:
     ${4:/* data */}
 };${0}
 endsnippet
+
+# $4 makes the argument name the same as the type, but with a lower-case first letter
+snippet osop "ostream operator"
+${1:inline }${2:std::}ostream& operator<<($1ostream& os, const ${3:Type}& `!p snip.rv = t[3][0].lower() + t[3][1:]`) {
+      os << $0
+
+	  return os;
+}
+endsnippet
