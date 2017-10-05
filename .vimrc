@@ -39,8 +39,8 @@ Plug 'tpope/vim-fugitive'
 
 " Ultisnips
 Plug 'SirVer/ultisnips'
-set runtimepath += "$HOME/.vim"
-"let g:UltiSnipsSnippetsDir = "~"
+set runtimepath += "~/.vim"
+let g:UltiSnipsSnippetsDir = "~/.vim/my_snippets"
 let g:UltiSnipsSnippetDirectories=["my_snippets"]
 let g:UltiSnipsEditSplit = "horizontal"
 let g:UltiSnipsExpandTrigger = "<c-j>"
