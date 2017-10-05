@@ -31,12 +31,6 @@ let g:clang_library_path = '/usr/local/opt/llvm/lib/libclang.dylib'
 " Fugitive
 Plug 'tpope/vim-fugitive'
 
-" YouCompleteMe
-Plug 'Valloric/YouCompleteMe'
-
-" Fugitive
-Plug 'tpope/vim-fugitive'
-
 " Ultisnips
 Plug 'SirVer/ultisnips'
 set runtimepath += "~/.vim"
