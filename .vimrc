@@ -55,6 +55,7 @@ set softtabstop=4       " number of spaces in tab when editing
 set expandtab           " tabs are spaces
 set shiftwidth=4        " the number of space characters inserted for indentation
 set bs=2                " Allow backspacing over everything in insert mode
+set ruler
 
 " --------------- UI Config ---------------
 set number                  " show line numbers
@@ -80,8 +81,13 @@ nnoremap j gj
 nnoremap k gk
 
 " Collapse all folds: zM, open all folds: zR
-
 let javaScript_fold=1   " JavaScript
+
+" Always start at the first line for a git commit message
+autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
+
+" Show 80 char line for js files
+autocmd FileType javascript setlocal colorcolumn=80
 
 " --------------- Leader shortcuts ---------------
 " leader is a comma
