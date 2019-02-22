@@ -83,9 +83,6 @@ nnoremap k gk
 " Collapse all folds: zM, open all folds: zR
 let javaScript_fold=1   " JavaScript
 
-" Always start at the first line for a git commit message
-autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
-
 " Show 80 char line for js files
 autocmd FileType javascript setlocal colorcolumn=80
 
@@ -151,6 +148,10 @@ augroup END
 "Automatically jump to the last line you were at (`" command does this)
 autocmd BufReadPost *  exe "normal `\""
 
+" Always start at the first line for a git commit message
+autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
+
+
 " --------------- Custom functions ---------------
 " toggle between number and relativenumber
 function! ToggleNumber()
@@ -178,3 +179,8 @@ endfunction
 " recursively grep for word under cursor starting from current directory
 nnoremap <silent> <C-F> :execute 'grep! -Irni ' . expand("<cword>") . ' *' <CR>:cw<CR>
 
+" key-notation fields pulled from :h key-notation
+" turned a line of 8 hex values into hex byte pairs, i.e.:
+" DEADBEEF -> 0xDE, 0xAD, 0xBE, 0xEF, <CR>
+let @b = "i0x\<Right>\<Right>, 0x\<Right>\<Right>, 0x\<Right>\<Right>, 0x\<Right>\<Right>,\<Del>\<CR>\<Esc>"
+let @c = "4@b"
