@@ -1,53 +1,28 @@
-" --------------- Plug ---------------
-" https://github.com/junegunn/vim-plug
-" Load vim-plug
-if empty(glob("~/.vim/autoload/plug.vim"))
-    execute '!mkdir -p ~/.vim/autoload'
-    execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
-endif
-
+" --------------- Plugins ---------------
 " Specify a directory for plugins
-" - For Neovim: ~/.local/share/nvim/plugged
-" - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
-
-" CtrlP
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ctrlpvim/ctrlp.vim'
-
-" Gundo
-Plug 'sjl/gundo.vim'
-
-" YouCompleteMe
-" Plug 'Valloric/YouCompleteMe'
-
-" clang_complete
-Plug 'bbaldino/clang_complete', { 'branch': 'fix_single_quote_escape_in_results' }
-let g:clang_auto_user_options =  'compile_commands.json'
-let g:clang_snippets = 1
-let g:clang_snippets_engine = 'clang_complete'
-let g:clang_auto_select = 1
-let g:clang_library_path = '/usr/local/opt/llvm/lib/libclang.dylib'
-
-" Fugitive
-Plug 'tpope/vim-fugitive'
-
-" Ultisnips
-Plug 'SirVer/ultisnips'
-set runtimepath += "~/.vim"
-let g:UltiSnipsSnippetsDir = "~/.vim/my_snippets"
-let g:UltiSnipsSnippetDirectories=["my_snippets"]
-let g:UltiSnipsEditSplit = "horizontal"
-let g:UltiSnipsExpandTrigger = "<c-j>"
-
-" Initialize plugin system
+Plug 'cdelledonne/vim-cmake'
+Plug 'rhysd/vim-clang-format'
+Plug 'vim-airline/vim-airline'
+Plug 'farmergreg/vim-lastplace'
 call plug#end()
+
+let g:coc_global_extensions = [
+    \'coc-clangd',
+    \'coc-json',
+    \'coc-python'
+    \]
 
 " formatting and lots of the settings taken from here:
 " https://dougblack.io/words/a-good-vimrc.html
 
 " --------------- Colors ---------------
-colorscheme delek
 syntax enable           " enable syntax processing
+" Improve the colors used for some CoC windows
+highlight Pmenu ctermbg=gray ctermfg=white
+highlight CocErrorFloat ctermfg=130
 
 " --------------- Spaces & Tabs ---------------
 set tabstop=4           " number of visual spaces per TAB
@@ -55,57 +30,29 @@ set softtabstop=4       " number of spaces in tab when editing
 set expandtab           " tabs are spaces
 set shiftwidth=4        " the number of space characters inserted for indentation
 set bs=2                " Allow backspacing over everything in insert mode
-set ruler
 
 " --------------- UI Config ---------------
-set number                  " show line numbers
-set showcmd                 " show command in bottom bar
 set cursorline              " highlight current line
 filetype plugin indent on   " load filetype-specific indent files
-set wildmenu                " visual autocomplete for command menu
-set wildmode=list:longest
+" TODO: Don't think these are needed anymore?
+" set wildmenu                " visual autocomplete for command menu
+" set wildmode=list:longest
 set scrolloff=10            " start scrolling when the cursor is within 10 lines of the edge
 set showmatch               " highlight matching [{()}]
-
-" --------------- Folding ---------------
-set foldenable          " enable folding
-set foldlevelstart=10   " open most folds by default
-set foldnestmax=10      " 10 nested fold max
-
-" space open/closes folds
-nnoremap <space> za
-set foldmethod=indent   " fold based on indent level
 
 " move vertically by visual line TODO: do this with arrows?
 nnoremap j gj
 nnoremap k gk
 
-" Collapse all folds: zM, open all folds: zR
-let javaScript_fold=1   " JavaScript
-
-" Show 80 char line for js files
-autocmd FileType javascript setlocal colorcolumn=80
-
 " --------------- Leader shortcuts ---------------
 " leader is a comma
 let mapleader=","
 
-" toggle gundo
-nnoremap <leader>u :GundoToggle<CR>
-
 " save session
 nnoremap <leader>s :mksession<CR>
 
-" CtrlP settings
-let g:ctrlp_match_window = 'bottom,order:ttb'
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 0
-"let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-
-" YouCompleteMe FixIt shortcut
-" nnoremap <leader>f :YcmCompleter FixIt<CR>
-
 " allows cursor change in tmux mode
+" TODO: still needed?
 if exists('$TMUX')
     let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
     let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
@@ -113,9 +60,6 @@ else
     let &t_SI = "\<Esc>]50;CursorShape=1\x7"
     let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
-
-" Fugitive
-nnoremap <leader>b :Gblame<cr>
 
 " --------------- Searching ---------------
 set ignorecase
@@ -128,29 +72,108 @@ set hlsearch            " highlight matches
 " turn off search highlight with ,<space>
 nnoremap <leader><space> :nohlsearch<CR>
 
-" --------------- Autogroups ---------------
-augroup configgroup
-    autocmd!
-    autocmd VimEnter * highlight clear SignColumn
-    autocmd BufWritePre *.py,*.js,*.txt,*.java,*.md,*.cc,*.cpp,*.h,*.hpp 
-        \ :call <SID>StripTrailingWhitespaces()
-    autocmd FileType *.cc setlocal foldmethod=syntax
-    autocmd FileType java setlocal list
-    autocmd FileType java setlocal listchars=tab:+\ ,eol:-
-    autocmd FileType java setlocal formatprg=par\ -w80\ -T4
-    autocmd FileType python setlocal commentstring=#\ %s
-    autocmd BufEnter Makefile setlocal noexpandtab
-    autocmd BufEnter *.sh setlocal tabstop=2
-    autocmd BufEnter *.sh setlocal shiftwidth=2
-    autocmd BufEnter *.sh setlocal softtabstop=2
-augroup END
+" Better display for messages
+set cmdheight=2
 
-"Automatically jump to the last line you were at (`" command does this)
-autocmd BufReadPost *  exe "normal `\""
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
 
-" Always start at the first line for a git commit message
-autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
+" always show signcolumns
+set signcolumn=yes
 
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" CtrlP options
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$|docker_build.*$|build.*$|INPUT.*$|OUTPUT.*$',
+  \ 'file': '\v\.(exe|so|o|pyc|dll)$',
+  \ }
+let g:ctrlp_use_caching = 0
+
+autocmd BufWritePre *.h,*.hpp,*.c,*.cpp,*.vert,*.frag :ClangFormat
+
+" Make the highlight on cursorhold faster
+set updatetime=1000
+
+" Map ctrl-shift-r to run the current test
+nnoremap <C-R> :cexpr system('cd /home/lal/volume/_docker_build; ../.vscode/vsc_build_test.sh build_and_run ' . expand('%:p'))<cr>:copen<cr>
+
+" Overwrite makeprg to our build command
+set makeprg=ninja\ -C\ /home/lal/volume/_docker_build\ -j\ 10
+" Map ctrl-shift-b to build all
+" NOTE: this first one is what vscode runs, but it doesn't seem to support the
+" -C 'working dir' arg like make & ninja do (see
+"  https://vi.stackexchange.com/questions/2331/quickfix-with-makeprg-running-in-a-different-directory)
+"  is there a way to make it work with cmake? (do we care?)
+"nnoremap <C-B> :cexpr system('/usr/bin/cmake --build /home/lal/volume/_docker_build --config Debug --target all -j 10 --')<cr>:copen<cr>
+"nnoremap <C-B> :cexpr system('ninja -C /home/lal/volume/_docker_build -j 10')<cr>:copen<cr>
+nnoremap <C-B> :make<cr>:copen<cr>
 
 " --------------- Custom functions ---------------
 " toggle between number and relativenumber
@@ -164,23 +187,10 @@ function! ToggleNumber()
 endfunc
 nnoremap <leader>l :call ToggleNumber()<cr>
 
-" strips trailing whitespace at the end of files. this
-" is called on buffer write in the autogroup above.
-function! <SID>StripTrailingWhitespaces()
-    " save last search & cursor position
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    %s,\s\+$,,e
-    let @/=_s
-    call cursor(l, c)
-endfunction
-
-" recursively grep for word under cursor starting from current directory
-nnoremap <silent> <C-F> :execute 'grep! -Irni ' . expand("<cword>") . ' *' <CR>:cw<CR>
-
 " key-notation fields pulled from :h key-notation
 " turned a line of 8 hex values into hex byte pairs, i.e.:
 " DEADBEEF -> 0xDE, 0xAD, 0xBE, 0xEF, <CR>
 let @b = "i0x\<Right>\<Right>, 0x\<Right>\<Right>, 0x\<Right>\<Right>, 0x\<Right>\<Right>,\<Del>\<CR>\<Esc>"
 let @c = "4@b"
+
+set noswapfile
