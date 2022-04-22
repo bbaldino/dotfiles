@@ -157,6 +157,7 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_use_caching = 0
 
 autocmd BufWritePre *.h,*.hpp,*.c,*.cpp,*.vert,*.frag :ClangFormat
+autocmd BufWritePre *.rs :call CocAction('format')
 
 " Make the highlight on cursorhold faster
 set updatetime=1000
