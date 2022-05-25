@@ -32,4 +32,6 @@ return require('packer').startup(function()
     }
 
     use { 'neoclide/coc.nvim', branch = 'release' }
+
+    use 'ethanholz/nvim-lastplace'
 end)
