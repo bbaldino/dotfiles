@@ -34,6 +34,9 @@ require('plugins')
 
 --- Telescope keymappings
 require('telescope').setup {
+    defaults = {
+        path_display = { "smart" },
+    },
     extensions = {
         frecency = {
             default_workspace = "CWD",
@@ -49,6 +52,10 @@ map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>")
 map("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>")
 
 map("n", "<C-h>", ":CocCommand clangd.switchSourceHeader<cr>", { silent = true })
+
+map("n", "<C-R>", ":cexpr system('cd /home/lal/volume/_docker_build; ../.vscode/vsc_build_test.sh build_and_run ' . expand('%:p'))<cr>:copen<cr>");
+
+vim.opt.makeprg="ninja -C /home/lal/volume/_docker_build -j 12"
 
 ---- CoC mappings
 function esc(cmd)
