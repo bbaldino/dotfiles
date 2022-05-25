@@ -42,6 +42,13 @@ require'nvim-lastplace'.setup {
 require('telescope').setup {
     defaults = {
         path_display = { "smart" },
+        mappings = {
+            i = {
+              ["<C-Down>"] = require('telescope.actions').cycle_history_next,
+              ["<C-Up>"] = require('telescope.actions').cycle_history_prev,
+            },
+        },
+
     },
     extensions = {
         frecency = {
