@@ -48,6 +48,8 @@ map("n", "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>")
 map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>")
 map("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>")
 
+map("n", "<C-h>", ":CocCommand clangd.switchSourceHeader<cr>", { silent = true })
+
 ---- CoC mappings
 function esc(cmd)
   return vim.api.nvim_replace_termcodes(cmd, true, false, true)
