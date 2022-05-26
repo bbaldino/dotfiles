@@ -64,7 +64,7 @@ vim.keymap.set("n", "gr", "<Plug>(coc-references)", { silent = true })
 
 vim.keymap.set("n", "<leader>a", "<Plug>(coc-codeaction-selected")
 vim.keymap.set("n", "<leader>qf", "<Plug>(coc-fix-current")
-vim.keymap.set("n", "<leader>rn", "<Plug>(coc-rename")
+vim.keymap.set("n", "<leader>rn", "<Plug>(coc-rename)")
 
 vim.cmd [[autocmd CursorHold * silent call CocActionAsync('highlight')]]
 -- Make the highlight on cursorhold faster
