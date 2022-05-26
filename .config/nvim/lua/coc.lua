@@ -25,6 +25,13 @@ _G.tab_completion = function()
     end
 end
 
+vim.g.coc_global_extensions = {
+    'coc-clangd',
+    'coc-json',
+    'coc-lua',
+}
+vim.cmd [[command! ExtensionUpdate call coc#util#install_extension(g:coc_global_extensions)]]
+
 -- Use tab to cycle through completion menu
 vim.keymap.set("i", "<Tab>", "v:lua.tab_completion()", {expr = true})
 -- Use shift-tab to reverse cycle through completion menu
