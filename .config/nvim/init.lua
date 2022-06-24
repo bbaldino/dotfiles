@@ -123,22 +123,6 @@ end
 
 vim.keymap.set("n", "K", "v:lua.show_documentation()", { expr = true })
 
-vim.keymap.set("n", "gd", "<Plug>(coc-definition)", { silent = true })
-vim.keymap.set("n", "gy", "<Plug>(coc-type-definition)", { silent = true })
-vim.keymap.set("n", "gi", "<Plug>(coc-implementation)", { silent = true })
-vim.keymap.set("n", "gr", "<Plug>(coc-references)", { silent = true })
-
-vim.opt.makeprg="ninja -C /home/lal/volume/_docker_build -j 12"
-
-vim.keymap.set("n", "<leader>a", "<Plug>(coc-codeaction-selected)")
-vim.keymap.set("n", "<leader>qf", "<Plug>(coc-fix-current)")
-vim.keymap.set("n", "<leader>rn", "<Plug>(coc-rename)")
-vim.keymap.set("n", "<leader>j", "<Plug>(coc-diagnostic-next-error)")
-vim.keymap.set("n", "<leader>k", "<Plug>(coc-diagnostic-prev-error)")
-
--- vim.cmd('autocmd Filetype ts setlocal expandtab tabstop=2 shiftwidth=2')
-
--- The below config for file-based indent doesn't seem to work
 vim.api.nvim_create_augroup("typescript", {clear = true})
 vim.api.nvim_create_autocmd("FileType", {
   group = "typescript",
