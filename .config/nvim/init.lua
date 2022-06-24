@@ -24,11 +24,6 @@ vim.keymap.set("n", "<leader><space>", ":nohlsearch<CR>")
 vim.opt.signcolumn = 'yes'
 
 require('plugins')
-local luasnup = require('luasnip')
--- luasnip.snippets = require("luasnip-snippets").load_snippets()
--- require("luasnip/loaders/from_vscode").load({ paths = { "~/.local/share/nvim/site/pack/packer/start/friendly-snippets" } })
-require("luasnip/loaders/from_vscode").lazy_load()
-
 
 require'nvim-lastplace'.setup {
     lastplace_ignore_buftype = {"quickfix", "nofile", "help"},
@@ -77,11 +72,13 @@ local check_back_space = function()
     end
 end
 
+map("n", "<leader>qf", "<Plug>coc-fix-current")
+
 _G.tab_completion = function()
     if vim.fn.pumvisible() == 1 then
         return esc "<C-n>"
-    elseif luasnup and luasnup.expand_or_jumpable() then
-        return esc "<Plug>luasnip-expand-or-jump"
+    --else if vim.fn["coc#expandableOrJumpable"]() then
+    --    return esc "<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>"
     elseif check_back_space() then
         return esc "<Tab>"
     else
@@ -92,8 +89,6 @@ end
 _G.s_tab_completion = function()
     if vim.fn.pumvisible() == 1 then
         return esc "<C-p>"
-    elseif luasnip and luasnip.jumpable(-1) then
-        return est "<Plug>luasnip-jump-prev"
     else
         return esc "<S-Tab>"
     end
@@ -134,5 +129,26 @@ vim.keymap.set("n", "gi", "<Plug>(coc-implementation)", { silent = true })
 vim.keymap.set("n", "gr", "<Plug>(coc-references)", { silent = true })
 
 vim.opt.makeprg="ninja -C /home/lal/volume/_docker_build -j 12"
+
+vim.keymap.set("n", "<leader>a", "<Plug>(coc-codeaction-selected)")
+vim.keymap.set("n", "<leader>qf", "<Plug>(coc-fix-current)")
+vim.keymap.set("n", "<leader>rn", "<Plug>(coc-rename)")
+vim.keymap.set("n", "<leader>j", "<Plug>(coc-diagnostic-next-error)")
+vim.keymap.set("n", "<leader>k", "<Plug>(coc-diagnostic-prev-error)")
+
+-- vim.cmd('autocmd Filetype ts setlocal expandtab tabstop=2 shiftwidth=2')
+
+-- The below config for file-based indent doesn't seem to work
+vim.api.nvim_create_augroup("typescript", {clear = true})
+vim.api.nvim_create_autocmd("FileType", {
+  group = "typescript",
+  pattern = "typescript",
+  callback = function()
+    vim.opt_local.tabstop = 2
+    vim.opt_local.softtabstop = 2
+    vim.opt_local.expandtab = true
+    vim.opt_local.shiftwidth = 2
+  end,
+})
 
 require('coc')

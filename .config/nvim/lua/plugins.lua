@@ -34,5 +34,4 @@ return require('packer').startup(function()
     use { 'neoclide/coc.nvim', branch = 'release' }
 
     use 'ethanholz/nvim-lastplace'
-    use 'L3MON4D3/LuaSnip'
 end)
