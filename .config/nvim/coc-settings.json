@@ -20,5 +20,8 @@
                 }
             }
         }
-    }
+    },
+    "tsserver.log": "verbose",
+    "typescript.implementationsCodeLens.enable": false,
+    "typescript.preferences.importModuleSpecifier": "relative"
 }
