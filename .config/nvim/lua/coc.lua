@@ -29,6 +29,8 @@ vim.g.coc_global_extensions = {
     'coc-clangd',
     'coc-json',
     'coc-lua',
+    'coc-tsserver',
+    'coc-prettier'
 }
 vim.cmd [[command! ExtensionUpdate call coc#util#install_extension(g:coc_global_extensions)]]
 
