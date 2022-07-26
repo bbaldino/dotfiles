@@ -107,6 +107,8 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
+  vim.keymap.set('n', '<leader>j', vim.lsp.diagnostic.goto_next, bufopts)
+  vim.keymap.set('n', '<leader>k', vim.lsp.diagnostic.goto_prev, bufopts)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -125,6 +127,7 @@ end
 
 -- luasnip setup
 local luasnip = require 'luasnip'
+require("luasnip.loaders.from_vscode").lazy_load()
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
