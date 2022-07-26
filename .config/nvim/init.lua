@@ -31,6 +31,18 @@ require'nvim-lastplace'.setup {
     lastplace_open_folds = true
 }
 
+vim.api.nvim_create_augroup("typescript", {clear = true})
+vim.api.nvim_create_autocmd("FileType", {
+  group = "typescript",
+  pattern = "typescript",
+  callback = function()
+    vim.opt_local.tabstop = 2
+    vim.opt_local.softtabstop = 2
+    vim.opt_local.expandtab = true
+    vim.opt_local.shiftwidth = 2
+  end,
+})
+
 --- Telescope keymappings
 require('telescope').setup {
     defaults = {
@@ -103,10 +115,10 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'rust_analyzer' }
+local servers = { 'rust_analyzer', 'tsserver' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
+    on_attach = on_attach,
     capabilities = capabilities,
   }
 end
