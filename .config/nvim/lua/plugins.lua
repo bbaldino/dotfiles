@@ -52,4 +52,6 @@ return require('packer').startup(function()
     use {'nvim-telescope/telescope-ui-select.nvim' }
 
     use 'folke/tokyonight.nvim'
+    use 'nvim-treesitter/nvim-treesitter'
+    use 'nvim-treesitter/nvim-treesitter-context'
 end)
