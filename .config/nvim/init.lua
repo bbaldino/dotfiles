@@ -109,6 +109,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
   vim.keymap.set('n', '<leader>j', vim.lsp.diagnostic.goto_next, bufopts)
   vim.keymap.set('n', '<leader>k', vim.lsp.diagnostic.goto_prev, bufopts)
+  vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, bufopts)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
