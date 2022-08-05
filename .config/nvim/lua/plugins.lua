@@ -49,4 +49,5 @@ return require('packer').startup(function()
         run = ':call doge#install()',
     }
 
+    use 'folke/tokyonight.nvim'
 end)
