@@ -48,6 +48,8 @@ return require('packer').startup(function()
         'kkoomen/vim-doge',
         run = ':call doge#install()',
     }
+    -- Mainly to make mason's filter work better
+    use {'nvim-telescope/telescope-ui-select.nvim' }
 
     use 'folke/tokyonight.nvim'
 end)

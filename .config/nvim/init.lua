@@ -59,9 +59,16 @@ require('telescope').setup {
         frecency = {
             default_workspace = "CWD",
             show_scores = true
+        },
+        ["ui-select"] = {
+            require("telescope.themes").get_dropdown {
+            }
         }
     }
 }
+
+require("telescope").load_extension("ui-select")
+
 --map("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>")
 map("n", "<leader>ff", "<cmd>lua require('telescope').extensions.frecency.frecency()<cr>", { silent = true })
 
