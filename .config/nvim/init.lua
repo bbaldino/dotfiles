@@ -125,11 +125,27 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'rust_analyzer', 'tsserver' }
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
+local servers = { 
+    tsserver = {
+        init_options = {
+            preferences = {
+                importModuleSpecifierPreference = "project-relative",
+            },
+        },
+        codeActionsOnSave = {
+            source = {
+                organizeImports = true
+            }
+        },
+    },
+    rust_analyzer = {
+    }
+}
+for name, opt in pairs(servers) do
+  lspconfig[name].setup {
     on_attach = on_attach,
     capabilities = capabilities,
+    init_options = opt.init_options
   }
 end
 
