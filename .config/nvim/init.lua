@@ -94,7 +94,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- See `:help vim.o`
 
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
@@ -133,6 +133,9 @@ vim.g.maplocalleader = ' '
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+
+-- Clear search highlight
+vim.keymap.set('n', '<leader>,', ':nohlsearch<CR>')
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -219,7 +222,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help' },
+  ensure_installed = { 'c', 'cpp', 'lua', 'python', 'rust', 'typescript', 'help' },
 
   highlight = { enable = true },
   indent = { enable = true },
@@ -331,7 +334,10 @@ local on_attach = function(_, bufnr)
       vim.lsp.buf.formatting()
     end
   end, { desc = 'Format current buffer with LSP' })
+
+  nmap('<leader>f', ':Format<CR>', '[f]ormat buffer')
 end
+
 
 -- Setup mason so it can manage external tooling
 require('mason').setup()
