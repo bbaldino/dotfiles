@@ -192,6 +192,7 @@ require('gitsigns').setup {
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
+    path_display = {"smart"},
     mappings = {
       i = {
         ['<C-u>'] = false,
@@ -352,11 +353,11 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  -- clangd = {},
+  clangd = {},
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
-  -- tsserver = {},
+  tsserver = {},
 
   sumneko_lua = {
     Lua = {
@@ -438,6 +439,13 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+local function build_and_run(filepath)
+  os.execute(string.format('cd /home/lal/volume/_docker_build; ../.vscode/vsc_build_test.sh build_and_run %s', filepath))
+  vim.command('copen')
+end
+
+vim.api.nvim_set_keymap('n', '<C-R>', ':call build_and_run(expand("%:p"))<cr>', {noremap = true, silent = true})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
