@@ -16,4 +16,6 @@ return function(use)
   })
 
   use 'nvim-treesitter/nvim-treesitter-context'
+
+  use 'mhartington/formatter.nvim'
 end

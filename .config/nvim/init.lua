@@ -353,10 +353,10 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  clangd = {},
+  -- clangd = {},
   -- gopls = {},
   -- pyright = {},
-  -- rust_analyzer = {},
+  rust_analyzer = {},
   tsserver = {},
 
   sumneko_lua = {
@@ -396,6 +396,21 @@ mason_lspconfig.setup_handlers {
 
 -- Turn on lsp status information
 require('fidget').setup()
+
+require('formatter').setup({
+  logging = false,
+  filetype = {
+    typescript = {
+      function()
+        return {
+          exe = "prettierd",
+          args = {vim.api.nvim_buf_get_name(0)},
+          stdin = true
+        }
+      end
+    }
+  }
+})
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
