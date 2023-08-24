@@ -455,6 +455,11 @@ cmp.setup {
   },
 }
 
+local has_other, other = pcall(require, 'custom.other')
+if has_other then
+  other()
+end
+
 local function build_and_run(filepath)
   os.execute(string.format('cd /home/lal/volume/_docker_build; ../.vscode/vsc_build_test.sh build_and_run %s', filepath))
   vim.command('copen')

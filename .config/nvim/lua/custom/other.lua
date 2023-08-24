@@ -9,4 +9,6 @@ return function()
     end
   end,
   })
+
+vim.keymap.set('v', '<leader>y', '"+y', { desc = "Copy selection to system clipboard" })
 end
