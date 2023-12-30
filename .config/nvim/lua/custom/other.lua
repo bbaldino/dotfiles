@@ -16,7 +16,11 @@ return function()
   -- Override this from kickstart's default
   vim.o.hlsearch = true
   -- Clear highlight
-  vim.keymap.set('n', '<leader>,', ':nohlsearch<CR>')
+  vim.keymap.set('n', '<leader>,', ':nohlsearch<CR>', { desc = 'Clear search highlit' })
+
+  -- TODO: conflicts with switching tabs...also doesn't seem to jump the cursor to the right spot
+  vim.keymap.set('n', 'gT', '<cmd>tab split | lua vim.lsp.buf.definition()<CR>',
+    { desc = '[G]oto definition in new [t]ab' })
 
   local luasnip = require 'luasnip'
   vim.api.nvim_create_autocmd("ModeChanged", {
