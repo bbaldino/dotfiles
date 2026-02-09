@@ -1,6 +1,7 @@
 if status is-interactive
-    # Commands to run in interactive sessions can go here
+    fish_add_path /home/bbaldino/.cargo/bin
+    fish_add_path /home/bbaldino/.local/share/bob/nvim-bin/
+    alias config='/usr/bin/git --git-dir=/home/bbaldino/.cfg/ --work-tree=/home/bbaldino'
+    export EDITOR=nvim
 end
-
-fish_add_path /home/bbaldino/.local/share/bob/nvim-bin
-set -g fish_key_bindings fish_vi_key_bindings
+export PATH="$HOME/.local/bin:$PATH"
