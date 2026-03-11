@@ -8,6 +8,11 @@ if status is-interactive
     set -gx VISUAL nvim
 end
 
+if set -q TMUX
+    set -l pane_id (tmux display-message -p '#{session_name}_#{window_index}_#{pane_index}')
+    set -gx fish_history "tmux_$pane_id"
+end
+
 # machine-specific overrides
 if test -f ~/.config/fish/config.local.fish
     source ~/.config/fish/config.local.fish
